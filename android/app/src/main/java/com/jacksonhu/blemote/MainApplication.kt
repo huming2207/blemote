@@ -1,4 +1,4 @@
-package com.blemote
+package com.jacksonhu.blemote
 
 import android.app.Application
 import com.facebook.react.PackageList

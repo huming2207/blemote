@@ -1,4 +1,4 @@
-package com.blemote
+package com.jacksonhu.blemote
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
