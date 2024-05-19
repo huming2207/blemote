@@ -1,4 +1,4 @@
-export const CAMERA_SERVICE_UUID = '8000FF00-FF00-FFFF-FFFF-FFFFFFFFFFFF';
+export const CAMERA_SERVICE_UUID = '8000ff00-ff00-ffff-ffff-ffffffffffff';
 
 // This need to be hex only, see: https://github.com/innoveit/react-native-ble-manager/blob/f3704010e40edc6d0e8ce6ec4b4fbcb4c2c1b5d0/android/src/main/java/it/innove/UUIDHelper.java#L10
 export const CAMERA_WRITE_CHARACTERISTIC = 'FF01'; // Command to send to camera

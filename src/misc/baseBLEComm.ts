@@ -4,7 +4,7 @@ import BleManager, {
   BleManagerDidUpdateValueForCharacteristicEvent,
   Peripheral,
 } from 'react-native-ble-manager';
-import {CAMERA_NOTIFY_CHARACTERISTIC, CAMERA_SERVICE_UUID} from './constants';
+import {CAMERA_NOTIFY_CHARACTERISTIC, CAMERA_SERVICE_UUID, CAMERA_WRITE_CHARACTERISTIC, CAM_BUTTON_CMD_RECORD_DOWN} from './constants';
 import {BleStateInstance} from '../states/BleState';
 
 export class BaseBleComm {
@@ -40,21 +40,24 @@ export class BaseBleComm {
   }
 
   public async scan(timeout: number): Promise<void> {
+    console.log("BleComm: start scan");
     BleStateInstance.setScanning();
     BleStateInstance.setScannedDevices([]);
-    await BleManager.scan([CAMERA_SERVICE_UUID], timeout, false);
+    await BleManager.scan([], timeout, false);
 
     setTimeout(() => {
       BleStateInstance.clearScanning();
     }, timeout * 1000);
 
     BleManager.addListener('BleManagerDiscoverPeripheral', (event: BleDiscoverPeripheralEvent) => {
+      console.log(`BleManagerDiscoverPeripheral: Got ${event}`)
       BleStateInstance.addScannedDevice(event);
     });
   }
 
   public async connect(device: Peripheral): Promise<void> {
     try {
+      console.log(`Connecting item ${JSON.stringify(device, null, 4)}`)
       await BleManager.connect(device.id);
       await BleManager.retrieveServices(device.id, [CAMERA_SERVICE_UUID]);
       await BleManager.startNotification(device.id, CAMERA_SERVICE_UUID, CAMERA_NOTIFY_CHARACTERISTIC);
