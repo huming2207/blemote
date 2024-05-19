@@ -1,13 +1,14 @@
 import React from 'react';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
+import {DarkTheme, NavigationContainer} from '@react-navigation/native';
 import {RemoteScreen} from './src/views/RemoteScreen';
 import {SettingScreen} from './src/views/SettingScreen';
 import BleManager from 'react-native-ble-manager';
 import {Icon, PaperProvider} from 'react-native-paper';
 import {LightNavTheme} from './src/styles/navTheme';
-import {LightPaperTheme} from './src/styles/paperTheme';
+import {DarkPaperTheme, LightPaperTheme} from './src/styles/paperTheme';
+import {Appearance} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,9 +18,10 @@ BleManager.start({showAlert: false}).then(() => {
 });
 
 function App(): React.JSX.Element {
+  const colorScheme = Appearance.getColorScheme();
   return (
-    <NavigationContainer theme={LightNavTheme}>
-      <PaperProvider theme={LightPaperTheme}>
+    <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : LightNavTheme}>
+      <PaperProvider theme={colorScheme === 'dark' ? DarkPaperTheme : LightPaperTheme}>
         <Tab.Navigator
           screenOptions={({route}) => ({
             // eslint-disable-next-line react/no-unstable-nested-components

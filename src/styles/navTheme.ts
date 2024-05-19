@@ -1,4 +1,4 @@
-import {DefaultTheme, Theme} from '@react-navigation/native';
+import {DarkTheme, DefaultTheme, Theme} from '@react-navigation/native';
 import {blue} from 'material-colors-ts';
 
 export const LightNavTheme: Theme = {
@@ -8,3 +8,5 @@ export const LightNavTheme: Theme = {
     primary: blue.A200,
   },
 };
+
+export const DarkNavTheme = DarkTheme;
