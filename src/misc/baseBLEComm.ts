@@ -50,8 +50,12 @@ export class BaseBleComm {
     }, timeout * 1000);
 
     BleManager.addListener('BleManagerDiscoverPeripheral', (event: BleDiscoverPeripheralEvent) => {
-      console.log(`BleManagerDiscoverPeripheral: Got ${event}`)
-      BleStateInstance.addScannedDevice(event);
+      // Filter the scanned device here
+      // Somehow RN BLE manager on iOS can't get the advertised service UUID but it can get the manufacturer data in the advertisement, so we use that to filter.
+      // See: https://github.com/coral/freemote/tree/main?tab=readme-ov-file#sony-alpha-ble-remote-protocol
+      if (event.advertising.manufacturerData && event.advertising.manufacturerData["012d"]) {
+        BleStateInstance.addScannedDevice(event);
+      }
     });
   }
 
